@@ -15,7 +15,7 @@ public class RubiksCube {
     private static final int B = 5; // back
 
 
-    // Author: Jishith Guntamadugu
+    // Author: Jishith Guntamadugu, Gabriel Robles b
     /**
      * default constructor
      * Creates a Rubik's Cube in an initial state:
