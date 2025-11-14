@@ -354,6 +354,7 @@ public class RubiksCube {
         }
         return result;
     }
+    
 
     /**
      *
@@ -368,5 +369,23 @@ public class RubiksCube {
             count++;
         } while (!cube.isSolved());
         return count;
+    }
+
+    public int calculateHeuristic(){
+        int misplaced = 0;
+        char[] expected ={'O','R', 'G', 'B', 'W', 'Y'};
+        for(int face = 0; face < 6; face++){
+            char colour = expected[face];
+            for(int row = 0; row < 3; row++){
+                for(int col =0; col < 3; col++){
+                    if(cube[face][row][col] != colour){
+                        misplaced++;
+                    }
+                }
+            }
+           
+        }
+        return misplaced;
+
     }
 }
