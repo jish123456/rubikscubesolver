@@ -42,7 +42,14 @@ public class RubiksCube {
             }
         }
     }
-
+private RubiksCube(char[][][] stateToCopy) {
+    this.cube = new char[6][3][3];
+    for (int f = 0; f < 6; f++) {
+        for (int r = 0; r < 3; r++) {
+            System.arraycopy(stateToCopy[f][r], 0, this.cube[f][r], 0, 3);
+        }
+    }
+}
     /**
      * @param fileName
      * @throws IOException

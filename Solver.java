@@ -5,6 +5,9 @@ import java.lang.invoke.MethodHandles;
 import java.util.PriorityQueue; // For A* (sorts by f-score)
 import java.util.Map;           // To track visited states
 import java.util.HashMap;
+import java.util.Queue;
+import java.util.LinkedList;
+
 
 public class Solver {
 
@@ -43,7 +46,10 @@ public class Solver {
 		public int hashCode() {
 			return this.state.toString().hashCode();
 		}
-public static String solve(RubiksCube ScrambbledCube){
+public static String solveBFS(Rubikscube ScrambbledCube){
+	
+}
+public static String solveAstar(RubiksCube ScrambbledCube){
 	
 }
 
