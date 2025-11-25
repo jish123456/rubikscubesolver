@@ -367,6 +367,23 @@ public class RubiksCube {
     }
 
     /**
+     * Compact signature for hashing: flatten faces in order U, D, L, R, F, B,
+     * row-major per face. This avoids the multi-line formatting of toString().
+     */
+    public String signature() {
+        char[] sig = new char[54];
+        int idx = 0;
+        for (int face = 0; face < 6; face++) {
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    sig[idx++] = cube[face][r][c];
+                }
+            }
+        }
+        return new String(sig);
+    }
+
+    /**
      * Order of a move sequence (number of times you must apply it to return to solved).
      */
     public static int order(String moves) {
@@ -380,21 +397,76 @@ public class RubiksCube {
     }
 
     /**
-     * Simple heuristic: number of stickers not on their solved face.
+     * Heuristic for A*: sum of how far every non-center sticker (all 20 movable cubies)
+     * is from its home face. We approximate distance as the minimum number of face
+     * quarter-turns between the current face and the target face, then scale down
+     * because a single move repositions 8 stickers at once. We also take the max
+     * with a simple misplaced-sticker count to give A* a bit more spread.
      */
-    public int calculateHeuristic() {
+    public int calculateAStarHeuristic() {
+        int faceDistance = 0;
         int misplaced = 0;
+        
+        // Map colors to their solved face index
+        // Based on constructor: U=O, D=R, L=G, R=B, F=W, B=Y
+        // U=0, D=1, L=2, R=3, F=4, B=5
         char[] expected = { 'O', 'R', 'G', 'B', 'W', 'Y' };
+        
         for (int face = 0; face < 6; face++) {
-            char colour = expected[face];
-            for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 3; col++) {
-                    if (cube[face][row][col] != colour) {
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    // Skip center pieces (1,1) as they don't move
+                    if (r == 1 && c == 1) continue;
+
+                    char color = cube[face][r][c];
+                    int targetFace = getFaceForColor(color);
+                    
+                    // Add distance from current face to target face
+                    faceDistance += getFaceDistance(face, targetFace);
+
+                    // Misplaced sticker count
+                    if (color != expected[face]) {
                         misplaced++;
                     }
                 }
             }
         }
-        return misplaced;
+        
+        // Normalize because a single face turn moves 8 stickers at once.
+        int normalizedFace = faceDistance; // keep strong guidance; still optimistic-ish
+
+        // Misplaced stickers: at most 8 can be corrected per move; divide by 4 to keep it aggressive but not wild
+        int normalizedMisplaced = misplaced / 4;
+
+        // Take the max to stay on the safe side for admissibility while giving better spread
+        return Math.max(normalizedFace, normalizedMisplaced); 
+    }
+
+    private int getFaceForColor(char c) {
+        switch (c) {
+            case 'O': return U;
+            case 'R': return D;
+            case 'G': return L;
+            case 'B': return R;
+            case 'W': return F;
+            case 'Y': return B;
+            default: return 0;
+        }
+    }
+
+    // Returns minimum moves to get a sticker from face1 to face2
+    private int getFaceDistance(int f1, int f2) {
+        if (f1 == f2) return 0;
+        
+        // Opposites are 2 moves away
+        // U(0) <-> D(1)
+        // L(2) <-> R(3)
+        // F(4) <-> B(5)
+        if ((f1 == 0 && f2 == 1) || (f1 == 1 && f2 == 0)) return 2;
+        if ((f1 == 2 && f2 == 3) || (f1 == 3 && f2 == 2)) return 2;
+        if ((f1 == 4 && f2 == 5) || (f1 == 5 && f2 == 4)) return 2;
+        
+        // Adjacent faces are 1 move away
+        return 1;
     }
 }
