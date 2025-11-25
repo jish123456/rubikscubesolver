@@ -223,9 +223,17 @@ public class Solver {
                 if (System.nanoTime() >= deadline) {
                     return null;
                 }
+
+                // 1) Skip immediate opposite (your existing rule)
                 if (isInverseMove(current.lastMove, move)) {
-                    continue; // simple pruning of immediate undo
+                    continue;
                 }
+
+                // 2) NEW: skip repeating the same face, like F F or R R
+                if (current.lastMove == move) {
+                    continue;
+                }
+
                 RubiksCube nextState = new RubiksCube(current.state);
                 nextState.applyMoves(String.valueOf(move));
 
@@ -252,40 +260,42 @@ public class Solver {
     }
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("File names are not specified");
-            System.out.println("usage: java " 
-                    + MethodHandles.lookup().lookupClass().getName()
-                    + " input_file output_file");
-            return;
-        }
 
-        String inputPath = args[0];
-        String outputPath = args[1];
+        // List all test inputs you want to solve
+        String[] inputs = {
+                "testcases/scramble01.txt",
+                "testcases/scramble02.txt",
+                "testcases/scramble03.txt",
+                "testcases/scramble04.txt",
+                "testcases/scramble05.txt",
+                "testcases/scramble06.txt",
+                "testcases/scramble07.txt",
+                "testcases/scramble08.txt",
+                "testcases/scramble09.txt",
+                "testcases/scramble10.txt"
+        };
 
-        try {
-            RubiksCube cube = new RubiksCube(inputPath); // assumes this reads from a file
+        for (String input : inputs) {
+            String output = input.replace("scramble", "solution");
 
-            long startTime = System.nanoTime();
-            String solution = solve(cube, inputPath);
-            long elapsedNanos = System.nanoTime() - startTime;
-            double elapsedSeconds = elapsedNanos / 1_000_000_000.0;
+            System.out.println("Solving " + input + "...");
+            try {
+                RubiksCube cube = new RubiksCube(input);
+                long start = System.nanoTime();
+                String sol = solve(cube, input);
+                double sec = (System.nanoTime() - start) / 1e9;
 
-            if (solution == null) {
-                System.out.printf("No solution found (or timed out after %.3f s) for cube in %s%n",
-                        elapsedSeconds, inputPath);
-                return;
+                if (sol == null) sol = "";
+                try (PrintWriter w = new PrintWriter(output)) {
+                    w.println(sol);
+                }
+
+                System.out.printf("→ Done in %.3f s. Output written to %s\n", sec, output);
+
+            } catch (Exception e) {
+                System.out.println("FAILED on: " + input);
+                e.printStackTrace();
             }
-
-            try (PrintWriter writer = new PrintWriter(outputPath)) {
-                writer.println(solution);
-            }
-
-            System.out.printf("Solved cube in %.3f s. Moves written to %s%n",
-                    elapsedSeconds, outputPath);
-        } catch (IOException | IncorrectFormatException e) {
-            System.out.println("Failed to solve cube from " + inputPath + ": " + e.getMessage());
         }
-        
     }
 }

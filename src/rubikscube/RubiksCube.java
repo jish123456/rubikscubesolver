@@ -404,42 +404,20 @@ public class RubiksCube {
      * with a simple misplaced-sticker count to give A* a bit more spread.
      */
     public int calculateAStarHeuristic() {
-        int faceDistance = 0;
         int misplaced = 0;
-        
-        // Map colors to their solved face index
-        // Based on constructor: U=O, D=R, L=G, R=B, F=W, B=Y
-        // U=0, D=1, L=2, R=3, F=4, B=5
-        char[] expected = { 'O', 'R', 'G', 'B', 'W', 'Y' };
-        
+        char[] expected = { 'O', 'R', 'G', 'B', 'W', 'Y' }; // U,D,L,R,F,B
+
         for (int face = 0; face < 6; face++) {
             for (int r = 0; r < 3; r++) {
                 for (int c = 0; c < 3; c++) {
-                    // Skip center pieces (1,1) as they don't move
-                    if (r == 1 && c == 1) continue;
-
-                    char color = cube[face][r][c];
-                    int targetFace = getFaceForColor(color);
-                    
-                    // Add distance from current face to target face
-                    faceDistance += getFaceDistance(face, targetFace);
-
-                    // Misplaced sticker count
-                    if (color != expected[face]) {
-                        misplaced++;
-                    }
+                    if (r == 1 && c == 1) continue; // skip centers
+                    if (cube[face][r][c] != expected[face]) misplaced++;
                 }
             }
         }
-        
-        // Normalize because a single face turn moves 8 stickers at once.
-        int normalizedFace = faceDistance; // keep strong guidance; still optimistic-ish
 
-        // Misplaced stickers: at most 8 can be corrected per move; divide by 4 to keep it aggressive but not wild
-        int normalizedMisplaced = misplaced / 4;
-
-        // Take the max to stay on the safe side for admissibility while giving better spread
-        return Math.max(normalizedFace, normalizedMisplaced); 
+        // ceil(misplaced / 8.0) because a move affects up to ~8 stickers
+        return (misplaced + 7) / 8;
     }
 
     private int getFaceForColor(char c) {
