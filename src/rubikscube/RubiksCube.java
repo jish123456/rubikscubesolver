@@ -18,15 +18,15 @@ public class RubiksCube {
      * Default constructor.
      * Creates a Rubik's Cube in an initial state:
      *
-     *    OOO
-     *    OOO
-     *    OOO
+     * OOO
+     * OOO
+     * OOO
      * GGGWWWBBBYYY
      * GGGWWWBBBYYY
      * GGGWWWBBBYYY
-     *    RRR
-     *    RRR
-     *    RRR
+     * RRR
+     * RRR
+     * RRR
      */
     public RubiksCube() {
         this.cube = new char[6][3][3];
@@ -88,10 +88,14 @@ public class RubiksCube {
             // Middle strip (L, F, R, B): lines 3–5
             for (int r = 0; r < 3; r++) {
                 int lineIndex = 3 + r;
-                for (int c = 0; c < 3; c++) cube[L][r][c] = lines[lineIndex].charAt(c);
-                for (int c = 0; c < 3; c++) cube[F][r][c] = lines[lineIndex].charAt(3 + c);
-                for (int c = 0; c < 3; c++) cube[R][r][c] = lines[lineIndex].charAt(6 + c);
-                for (int c = 0; c < 3; c++) cube[B][r][c] = lines[lineIndex].charAt(9 + c);
+                for (int c = 0; c < 3; c++)
+                    cube[L][r][c] = lines[lineIndex].charAt(c);
+                for (int c = 0; c < 3; c++)
+                    cube[F][r][c] = lines[lineIndex].charAt(3 + c);
+                for (int c = 0; c < 3; c++)
+                    cube[R][r][c] = lines[lineIndex].charAt(6 + c);
+                for (int c = 0; c < 3; c++)
+                    cube[B][r][c] = lines[lineIndex].charAt(9 + c);
             }
 
             // Bottom (D): lines 6–8, chars 3–5
@@ -297,12 +301,24 @@ public class RubiksCube {
     public void applyMoves(String moves) {
         for (char move : moves.toCharArray()) {
             switch (move) {
-                case 'F': turnF(); break;
-                case 'B': turnB(); break;
-                case 'U': turnU(); break;
-                case 'D': turnD(); break;
-                case 'L': turnL(); break;
-                case 'R': turnR(); break;
+                case 'F':
+                    turnF();
+                    break;
+                case 'B':
+                    turnB();
+                    break;
+                case 'U':
+                    turnU();
+                    break;
+                case 'D':
+                    turnD();
+                    break;
+                case 'L':
+                    turnL();
+                    break;
+                case 'R':
+                    turnR();
+                    break;
                 default:
                     // Ignore unknown chars so Solver doesn't crash if something slips in
                     break;
@@ -319,7 +335,8 @@ public class RubiksCube {
             char colour = expected[face];
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
-                    if (cube[face][row][col] != colour) return false;
+                    if (cube[face][row][col] != colour)
+                        return false;
                 }
             }
         }
@@ -347,10 +364,14 @@ public class RubiksCube {
 
         // Middle strip (L F R B)
         for (int r = 0; r < 3; r++) {
-            for (int c = 0; c < 3; c++) result.append(cube[L][r][c]);
-            for (int c = 0; c < 3; c++) result.append(cube[F][r][c]);
-            for (int c = 0; c < 3; c++) result.append(cube[R][r][c]);
-            for (int c = 0; c < 3; c++) result.append(cube[B][r][c]);
+            for (int c = 0; c < 3; c++)
+                result.append(cube[L][r][c]);
+            for (int c = 0; c < 3; c++)
+                result.append(cube[F][r][c]);
+            for (int c = 0; c < 3; c++)
+                result.append(cube[R][r][c]);
+            for (int c = 0; c < 3; c++)
+                result.append(cube[B][r][c]);
             result.append('\n');
         }
 
@@ -384,7 +405,8 @@ public class RubiksCube {
     }
 
     /**
-     * Order of a move sequence (number of times you must apply it to return to solved).
+     * Order of a move sequence (number of times you must apply it to return to
+     * solved).
      */
     public static int order(String moves) {
         RubiksCube cube = new RubiksCube();
@@ -397,7 +419,8 @@ public class RubiksCube {
     }
 
     /**
-     * Heuristic for A*: sum of how far every non-center sticker (all 20 movable cubies)
+     * Heuristic for A*: sum of how far every non-center sticker (all 20 movable
+     * cubies)
      * is from its home face. We approximate distance as the minimum number of face
      * quarter-turns between the current face and the target face, then scale down
      * because a single move repositions 8 stickers at once. We also take the max
@@ -410,8 +433,10 @@ public class RubiksCube {
         for (int face = 0; face < 6; face++) {
             for (int r = 0; r < 3; r++) {
                 for (int c = 0; c < 3; c++) {
-                    if (r == 1 && c == 1) continue; // skip centers
-                    if (cube[face][r][c] != expected[face]) misplaced++;
+                    if (r == 1 && c == 1)
+                        continue; // skip centers
+                    if (cube[face][r][c] != expected[face])
+                        misplaced++;
                 }
             }
         }
@@ -422,29 +447,44 @@ public class RubiksCube {
 
     private int getFaceForColor(char c) {
         switch (c) {
-            case 'O': return U;
-            case 'R': return D;
-            case 'G': return L;
-            case 'B': return R;
-            case 'W': return F;
-            case 'Y': return B;
-            default: return 0;
+            case 'O':
+                return U;
+            case 'R':
+                return D;
+            case 'G':
+                return L;
+            case 'B':
+                return R;
+            case 'W':
+                return F;
+            case 'Y':
+                return B;
+            default:
+                return 0;
         }
     }
 
     // Returns minimum moves to get a sticker from face1 to face2
     private int getFaceDistance(int f1, int f2) {
-        if (f1 == f2) return 0;
-        
+        if (f1 == f2)
+            return 0;
+
         // Opposites are 2 moves away
         // U(0) <-> D(1)
         // L(2) <-> R(3)
         // F(4) <-> B(5)
-        if ((f1 == 0 && f2 == 1) || (f1 == 1 && f2 == 0)) return 2;
-        if ((f1 == 2 && f2 == 3) || (f1 == 3 && f2 == 2)) return 2;
-        if ((f1 == 4 && f2 == 5) || (f1 == 5 && f2 == 4)) return 2;
-        
+        if ((f1 == 0 && f2 == 1) || (f1 == 1 && f2 == 0))
+            return 2;
+        if ((f1 == 2 && f2 == 3) || (f1 == 3 && f2 == 2))
+            return 2;
+        if ((f1 == 4 && f2 == 5) || (f1 == 5 && f2 == 4))
+            return 2;
+
         // Adjacent faces are 1 move away
         return 1;
+    }
+
+    public char getColor(int face, int row, int col) {
+        return cube[face][row][col];
     }
 }

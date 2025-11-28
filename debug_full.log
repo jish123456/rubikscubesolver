@@ -1,0 +1,326 @@
+Solving scramble01...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: OYB -> BOY -> ID 1
+Corner 1: GYO -> GOY -> ID 0
+Corner 2: WBR -> BRW -> ID 5
+Corner 3: OWG -> GOW -> ID 3
+Corner 4: RGW -> GRW -> ID 4
+Corner 5: BWO -> BOW -> ID 2
+Corner 6: RBY -> BRY -> ID 6
+Corner 7: RYG -> GRY -> ID 7
+Edge 0: OB -> BO -> ID 1
+Edge 1: WB -> BW -> ID 5
+Edge 2: OW -> OW -> ID 2
+Edge 3: OG -> GO -> ID 3
+Edge 4: WG -> GW -> ID 4
+Edge 5: OY -> OY -> ID 0
+Edge 6: YB -> BY -> ID 6
+Edge 7: YG -> GY -> ID 7
+Edge 8: RW -> RW -> ID 8
+Edge 9: RB -> BR -> ID 9
+Edge 10: RY -> RY -> ID 10
+Edge 11: RG -> GR -> ID 11
+Start Cube State:
+CP: [1, 0, 5, 3, 4, 2, 6, 7]
+CO: [0, 2, 2, 0, 0, 2, 0, 0]
+EP: [1, 5, 2, 3, 4, 0, 6, 7, 8, 9, 10, 11]
+EO: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+Searching with threshold: 21
+Searching with threshold: 22
+Solution written to testcases/solution01.txt
+Solving scramble02...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: BOY -> BOY -> ID 1
+Corner 1: BYR -> BRY -> ID 6
+Corner 2: BRW -> BRW -> ID 5
+Corner 3: BWO -> BOW -> ID 2
+Corner 4: GOW -> GOW -> ID 3
+Corner 5: GWR -> GRW -> ID 4
+Corner 6: GRY -> GRY -> ID 7
+Corner 7: GYO -> GOY -> ID 0
+Edge 0: BY -> BY -> ID 6
+Edge 1: OB -> BO -> ID 1
+Edge 2: BW -> BW -> ID 5
+Edge 3: OG -> GO -> ID 3
+Edge 4: WO -> OW -> ID 2
+Edge 5: WR -> RW -> ID 8
+Edge 6: YR -> RY -> ID 10
+Edge 7: YO -> OY -> ID 0
+Edge 8: GW -> GW -> ID 4
+Edge 9: RB -> BR -> ID 9
+Edge 10: GY -> GY -> ID 7
+Edge 11: RG -> GR -> ID 11
+Start Cube State:
+CP: [1, 6, 5, 2, 3, 4, 7, 0]
+CO: [1, 2, 1, 2, 1, 2, 1, 2]
+EP: [6, 1, 5, 3, 2, 8, 10, 0, 4, 9, 7, 11]
+EO: [1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0]
+Searching with threshold: 15
+Searching with threshold: 16
+Searching with threshold: 17
+Searching with threshold: 18
+Searching with threshold: 19
+Searching with threshold: 20
+Searching with threshold: 21
+Searching with threshold: 22
+Solution written to testcases/solution02.txt
+Solving scramble03...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: WOB -> BOW -> ID 2
+Corner 1: GOW -> GOW -> ID 3
+Corner 2: YBO -> BOY -> ID 1
+Corner 3: RBY -> BRY -> ID 6
+Corner 4: BRW -> BRW -> ID 5
+Corner 5: OGY -> GOY -> ID 0
+Corner 6: WRG -> GRW -> ID 4
+Corner 7: RYG -> GRY -> ID 7
+Edge 0: OB -> BO -> ID 1
+Edge 1: GW -> GW -> ID 4
+Edge 2: RB -> BR -> ID 9
+Edge 3: WO -> OW -> ID 2
+Edge 4: WR -> RW -> ID 8
+Edge 5: YB -> BY -> ID 6
+Edge 6: OG -> GO -> ID 3
+Edge 7: YG -> GY -> ID 7
+Edge 8: BW -> BW -> ID 5
+Edge 9: OY -> OY -> ID 0
+Edge 10: RY -> RY -> ID 10
+Edge 11: RG -> GR -> ID 11
+Start Cube State:
+CP: [2, 3, 1, 6, 5, 0, 4, 7]
+CO: [1, 1, 2, 0, 1, 0, 1, 0]
+EP: [1, 4, 9, 2, 8, 6, 3, 7, 5, 0, 10, 11]
+EO: [0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0]
+Searching with threshold: 24
+Searching with threshold: 25
+Solution written to testcases/solution03.txt
+Solving scramble04...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: OGY -> GOY -> ID 0
+Corner 1: OYB -> BOY -> ID 1
+Corner 2: OBW -> BOW -> ID 2
+Corner 3: OWG -> GOW -> ID 3
+Corner 4: RGW -> GRW -> ID 4
+Corner 5: RWB -> BRW -> ID 5
+Corner 6: RBY -> BRY -> ID 6
+Corner 7: RYG -> GRY -> ID 7
+Edge 0: OY -> OY -> ID 0
+Edge 1: BO -> BO -> ID 1
+Edge 2: OW -> OW -> ID 2
+Edge 3: GO -> GO -> ID 3
+Edge 4: GW -> GW -> ID 4
+Edge 5: BW -> BW -> ID 5
+Edge 6: BY -> BY -> ID 6
+Edge 7: GY -> GY -> ID 7
+Edge 8: RW -> RW -> ID 8
+Edge 9: BR -> BR -> ID 9
+Edge 10: RY -> RY -> ID 10
+Edge 11: GR -> GR -> ID 11
+Start Cube State:
+CP: [0, 1, 2, 3, 4, 5, 6, 7]
+CO: [0, 0, 0, 0, 0, 0, 0, 0]
+EP: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+EO: [0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1]
+Searching with threshold: 18
+Searching with threshold: 19
+Searching with threshold: 20
+Searching with threshold: 21
+Solution written to testcases/solution04.txt
+Solving scramble05...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: BWO -> BOW -> ID 2
+Corner 1: RWB -> BRW -> ID 5
+Corner 2: RBY -> BRY -> ID 6
+Corner 3: YOG -> GOY -> ID 0
+Corner 4: GRY -> GRY -> ID 7
+Corner 5: WRG -> GRW -> ID 4
+Corner 6: GOW -> GOW -> ID 3
+Corner 7: OYB -> BOY -> ID 1
+Edge 0: RW -> RW -> ID 8
+Edge 1: OW -> OW -> ID 2
+Edge 2: RY -> RY -> ID 10
+Edge 3: OG -> GO -> ID 3
+Edge 4: BO -> BO -> ID 1
+Edge 5: RG -> GR -> ID 11
+Edge 6: BW -> BW -> ID 5
+Edge 7: YO -> OY -> ID 0
+Edge 8: WG -> GW -> ID 4
+Edge 9: YG -> GY -> ID 7
+Edge 10: BY -> BY -> ID 6
+Edge 11: RB -> BR -> ID 9
+Start Cube State:
+CP: [2, 5, 6, 0, 7, 4, 3, 1]
+CO: [2, 0, 0, 1, 1, 1, 1, 0]
+EP: [8, 2, 10, 3, 1, 11, 5, 0, 4, 7, 6, 9]
+EO: [0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0]
+Searching with threshold: 24
+Searching with threshold: 25
+Searching with threshold: 26
+Searching with threshold: 27
+Searching with threshold: 28
+Solution written to testcases/solution05.txt
+Solving scramble06...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: OWG -> GOW -> ID 3
+Corner 1: BYR -> BRY -> ID 6
+Corner 2: RWB -> BRW -> ID 5
+Corner 3: YGR -> GRY -> ID 7
+Corner 4: BWO -> BOW -> ID 2
+Corner 5: OYB -> BOY -> ID 1
+Corner 6: RGW -> GRW -> ID 4
+Corner 7: OGY -> GOY -> ID 0
+Edge 0: OB -> BO -> ID 1
+Edge 1: BR -> BR -> ID 9
+Edge 2: YB -> BY -> ID 6
+Edge 3: WR -> RW -> ID 8
+Edge 4: YR -> RY -> ID 10
+Edge 5: YO -> OY -> ID 0
+Edge 6: GO -> GO -> ID 3
+Edge 7: OW -> OW -> ID 2
+Edge 8: GY -> GY -> ID 7
+Edge 9: BW -> BW -> ID 5
+Edge 10: WG -> GW -> ID 4
+Edge 11: GR -> GR -> ID 11
+Start Cube State:
+CP: [3, 6, 5, 7, 2, 1, 4, 0]
+CO: [0, 2, 0, 2, 2, 0, 0, 0]
+EP: [1, 9, 6, 8, 10, 0, 3, 2, 7, 5, 4, 11]
+EO: [0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1]
+Searching with threshold: 27
+Solution written to testcases/solution06.txt
+Solving scramble07...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: YGR -> GRY -> ID 7
+Corner 1: WGO -> GOW -> ID 3
+Corner 2: RWB -> BRW -> ID 5
+Corner 3: WRG -> GRW -> ID 4
+Corner 4: BOY -> BOY -> ID 1
+Corner 5: YOG -> GOY -> ID 0
+Corner 6: BWO -> BOW -> ID 2
+Corner 7: RBY -> BRY -> ID 6
+Edge 0: GO -> GO -> ID 3
+Edge 1: RG -> GR -> ID 11
+Edge 2: WO -> OW -> ID 2
+Edge 3: RB -> BR -> ID 9
+Edge 4: BO -> BO -> ID 1
+Edge 5: RW -> RW -> ID 8
+Edge 6: WB -> BW -> ID 5
+Edge 7: GY -> GY -> ID 7
+Edge 8: RY -> RY -> ID 10
+Edge 9: WG -> GW -> ID 4
+Edge 10: BY -> BY -> ID 6
+Edge 11: YO -> OY -> ID 0
+Start Cube State:
+CP: [7, 3, 5, 4, 1, 0, 2, 6]
+CO: [2, 2, 0, 1, 1, 1, 2, 0]
+EP: [3, 11, 2, 9, 1, 8, 5, 7, 10, 4, 6, 0]
+EO: [1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+Searching with threshold: 27
+Solution written to testcases/solution07.txt
+Solving scramble08...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: YRB -> BRY -> ID 6
+Corner 1: GYO -> GOY -> ID 0
+Corner 2: BOY -> BOY -> ID 1
+Corner 3: OBW -> BOW -> ID 2
+Corner 4: RWB -> BRW -> ID 5
+Corner 5: WGO -> GOW -> ID 3
+Corner 6: WRG -> GRW -> ID 4
+Corner 7: YGR -> GRY -> ID 7
+Edge 0: GW -> GW -> ID 4
+Edge 1: BR -> BR -> ID 9
+Edge 2: BO -> BO -> ID 1
+Edge 3: GO -> GO -> ID 3
+Edge 4: YG -> GY -> ID 7
+Edge 5: OY -> OY -> ID 0
+Edge 6: WR -> RW -> ID 8
+Edge 7: RG -> GR -> ID 11
+Edge 8: YB -> BY -> ID 6
+Edge 9: RY -> RY -> ID 10
+Edge 10: WO -> OW -> ID 2
+Edge 11: WB -> BW -> ID 5
+Start Cube State:
+CP: [6, 0, 1, 2, 5, 3, 4, 7]
+CO: [1, 2, 1, 0, 0, 2, 1, 2]
+EP: [4, 9, 1, 3, 7, 0, 8, 11, 6, 10, 2, 5]
+EO: [1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0]
+Searching with threshold: 27
+Solution written to testcases/solution08.txt
+Solving scramble09...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: OYB -> BOY -> ID 1
+Corner 1: WBR -> BRW -> ID 5
+Corner 2: GYO -> GOY -> ID 0
+Corner 3: GWR -> GRW -> ID 4
+Corner 4: WOB -> BOW -> ID 2
+Corner 5: RBY -> BRY -> ID 6
+Corner 6: GOW -> GOW -> ID 3
+Corner 7: GRY -> GRY -> ID 7
+Edge 0: RG -> GR -> ID 11
+Edge 1: YG -> GY -> ID 7
+Edge 2: BW -> BW -> ID 5
+Edge 3: GW -> GW -> ID 4
+Edge 4: OY -> OY -> ID 0
+Edge 5: WR -> RW -> ID 8
+Edge 6: WO -> OW -> ID 2
+Edge 7: BO -> BO -> ID 1
+Edge 8: RY -> RY -> ID 10
+Edge 9: RB -> BR -> ID 9
+Edge 10: YB -> BY -> ID 6
+Edge 11: GO -> GO -> ID 3
+Start Cube State:
+CP: [1, 5, 0, 4, 2, 6, 3, 7]
+CO: [0, 2, 2, 2, 1, 0, 1, 1]
+EP: [11, 7, 5, 4, 0, 8, 2, 1, 10, 9, 6, 3]
+EO: [0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1]
+Searching with threshold: 27
+Solution written to testcases/solution09.txt
+Solving scramble10...
+Loaded PDB: corner.pdb
+Loaded PDB: edge1.pdb
+Loaded PDB: edge2.pdb
+Corner 0: GOW -> GOW -> ID 3
+Corner 1: YOG -> GOY -> ID 0
+Corner 2: RGW -> GRW -> ID 4
+Corner 3: RWB -> BRW -> ID 5
+Corner 4: BOY -> BOY -> ID 1
+Corner 5: RBY -> BRY -> ID 6
+Corner 6: OBW -> BOW -> ID 2
+Corner 7: RYG -> GRY -> ID 7
+Edge 0: OW -> OW -> ID 2
+Edge 1: RY -> RY -> ID 10
+Edge 2: OG -> GO -> ID 3
+Edge 3: RB -> BR -> ID 9
+Edge 4: BW -> BW -> ID 5
+Edge 5: YO -> OY -> ID 0
+Edge 6: OB -> BO -> ID 1
+Edge 7: WG -> GW -> ID 4
+Edge 8: GY -> GY -> ID 7
+Edge 9: RW -> RW -> ID 8
+Edge 10: RG -> GR -> ID 11
+Edge 11: BY -> BY -> ID 6
+Start Cube State:
+CP: [3, 0, 4, 5, 1, 6, 2, 7]
+CO: [1, 1, 0, 0, 1, 0, 0, 0]
+EP: [2, 10, 3, 9, 5, 0, 1, 4, 7, 8, 11, 6]
+EO: [0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1]
+Searching with threshold: 27
+Solution written to testcases/solution10.txt
