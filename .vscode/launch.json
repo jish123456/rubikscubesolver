@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Solver",
+            "request": "launch",
+            "mainClass": "rubikscube.Solver",
+            "projectName": "cmpt225-project-fall25_80ae5c0a"
+        },
+        {
+            "type": "java",
+            "name": "Solver.java",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}

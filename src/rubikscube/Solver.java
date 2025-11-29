@@ -1,10 +1,13 @@
 package rubikscube;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Solver {
 
-    private static final long SOLVE_TIME_LIMIT_NANOS = 300_000_000_000L; // 300 seconds (5 minutes)
+    public static final long DEFAULT_SOLVE_TIME_LIMIT_NANOS = 300_000_000_000L; // 300 seconds (5 minutes)
 
     // PDBs
     private static PatternDatabase cornerDB;
@@ -29,7 +32,7 @@ public class Solver {
     }
 
     public static String solve(RubiksCube scrambledCube) {
-        return solve(scrambledCube, null);
+        return solve(scrambledCube, null, DEFAULT_SOLVE_TIME_LIMIT_NANOS);
     }
 
     // Faces: 0=U, 1=L, 2=F, 3=R, 4=B, 5=D
@@ -45,10 +48,10 @@ public class Solver {
 
     private static String solutionPath = null;
 
-    public static String solve(RubiksCube startCube, String inputName) {
+    public static String solve(RubiksCube startCube, String inputName, long timeoutNanos) {
         initPDBs();
         SmartCube start = new SmartCube(startCube);
-        System.out.println("Start Cube State:\n" + start);
+        // System.out.println("Start Cube State:\n" + start);
         solutionPath = null; // Reset solution path for each solve call
         nodesCount = 0;
 
@@ -56,22 +59,27 @@ public class Solver {
         int h = getHeuristic(start);
         int threshold = (int) (h * WEIGHT);
 
-        long deadline = System.nanoTime() + SOLVE_TIME_LIMIT_NANOS;
+        long deadline = System.nanoTime() + timeoutNanos;
 
         // IDA* loop
-        while (true) {
-            System.out.println("Searching with threshold: " + threshold);
-            int nextThreshold = search(start, 0, threshold, -1, deadline);
-            if (nextThreshold == -1) { // -1 signals solution found
-                return solutionPath;
+        try {
+            while (true) {
+                // Double check time before starting a new depth
+                if (System.nanoTime() >= deadline)
+                    throw new TimeoutException();
+
+                // System.out.println("Searching with threshold: " + threshold);
+                int nextThreshold = search(start, 0, threshold, -1, deadline);
+                if (nextThreshold == -1) { // -1 signals solution found
+                    return solutionPath;
+                }
+                if (nextThreshold == Integer.MAX_VALUE) {
+                    return "Solution not found"; // No solution within reasonable bounds
+                }
+                threshold = nextThreshold;
             }
-            if (nextThreshold == Integer.MAX_VALUE) {
-                return "Solution not found"; // No solution within reasonable bounds
-            }
-            if (System.nanoTime() >= deadline) {
-                return "Timeout";
-            }
-            threshold = nextThreshold;
+        } catch (TimeoutException e) {
+            return "TIMEOUT";
         }
     }
 
@@ -82,7 +90,7 @@ public class Solver {
         nodesCount++;
         if ((nodesCount & 1023) == 0) {
             if (System.nanoTime() >= deadline) {
-                return Integer.MAX_VALUE; // Abort
+                throw new TimeoutException();
             }
         }
 
@@ -132,15 +140,15 @@ public class Solver {
                     if (power == 1) {
                         moveString = name;
                     } else if (power == 2) {
-                        moveString = name + " " + name;
+                        moveString = name + name;
                     } else if (power == 3) {
-                        moveString = name + " " + name + " " + name;
+                        moveString = name + name + name;
                     }
 
                     if (solutionPath == null)
                         solutionPath = moveString;
                     else
-                        solutionPath = moveString + " " + solutionPath;
+                        solutionPath = moveString + solutionPath;
                     return -1;
                 }
 
@@ -165,7 +173,7 @@ public class Solver {
         return Math.max(h1, Math.max(h2, h3));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IncorrectFormatException, IOException {
         // Project Requirement: Command line arguments
         if (args.length < 2) {
             System.out.println("Usage: java rubikscube.Solver <input_file> <output_file>");
@@ -181,7 +189,7 @@ public class Solver {
 
             // 2. Solve
             long startTime = System.currentTimeMillis();
-            String sol = solve(cube, inputFile);
+            String sol = solve(cube, inputFile, DEFAULT_SOLVE_TIME_LIMIT_NANOS);
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
 
@@ -192,9 +200,64 @@ public class Solver {
 
             System.out.println("Solution written to " + outputFile);
             System.out.println("Execution Time: " + (duration / 1000.0) + " seconds");
+            System.out.println("Solution: " + sol);
+
+            if (sol != null && !sol.equals("TIMEOUT") && !sol.equals("Solution not found")) {
+                cube.applyMoves(sol);
+                if (cube.isSolved()) {
+                    System.out.println("Verification: SOLVED");
+                } else {
+                    System.out.println("Verification: NOT SOLVED");
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        for (int i = 0; i < 40; i++) {
+            // Make scramble cube
+            RubiksCube scramble = new RubiksCube(args[2 * i]);
+            String outputPath = args[2 * i + 1];
+            // Set timer
+            long start = System.nanoTime();
+            String solution = solve(scramble, null, 60_000_000_000L);
+
+            // CHECK FOR TIMEOUT
+            if (solution.equals("TIMEOUT")) {
+                System.out.println("❌ Scramble " + (i + 1) + " TIMED OUT (>60s). Skipping to next...");
+                System.out.println(" ");
+                try (PrintWriter w = new PrintWriter(outputPath)) {
+                    w.println("");
+                } // Write empty file
+                continue; // SKIP to the next iteration of the for-loop
+            }
+
+            System.out.println("Solution: " + solution);
+            if (solution != null) {
+                long end = System.nanoTime();
+                double seconds = (end - start) / 1_000_000_000.0;
+
+                // End timer
+                scramble.applyMoves(solution);
+                if (scramble.isSolved() && seconds < 10) {
+                    System.out.println("Scramble " + (i + 1) + " SOLVED IN REQ TIME");
+                    System.out.println("Solve took: " + seconds + " seconds");
+                    System.out.println("");
+                } else if (scramble.isSolved() && seconds > 10) {
+                    System.out.println("Scramble " + (i + 1) + " SOLVED IN TOO SLOW TIME");
+                    System.out.println("Solve took: " + seconds + " seconds");
+                    System.out.println(" ");
+                } else {
+                    System.out.println("Scramble " + (i + 1) + " NOT Solved");
+                    System.out.println(" ");
+                }
+            }
+        }
     }
+
+    // ADD THIS AT THE BOTTOM OF THE CLASS
+    private static class TimeoutException extends RuntimeException {
+    }
+
 }
